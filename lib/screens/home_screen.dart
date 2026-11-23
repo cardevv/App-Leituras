@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/livro.dart';
+import '../services/livro_storage.dart';
 import 'cadastro_screen.dart';
 
 /// Tela inicial: exibe a lista de livros cadastrados.
@@ -15,7 +16,24 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final List<Livro> _livros = [];
+  List<Livro> _livros = [];
+  bool _carregando = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _carregarLivros();
+  }
+
+  /// Recupera os livros salvos assim que o app é iniciado.
+  Future<void> _carregarLivros() async {
+    final livros = await LivroStorage.carregar();
+    if (!mounted) return;
+    setState(() {
+      _livros = livros;
+      _carregando = false;
+    });
+  }
 
   Future<void> _abrirCadastro() async {
     // Navega para a tela de cadastro e aguarda o livro retornado.
@@ -27,15 +45,19 @@ class _HomeScreenState extends State<HomeScreen> {
     if (novoLivro == null || !mounted) return;
 
     setState(() => _livros.add(novoLivro));
+    await LivroStorage.salvar(_livros);
+    if (!mounted) return;
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('"${novoLivro.titulo}" adicionado à lista.')),
     );
   }
 
-  void _removerLivro(int index) {
+  Future<void> _removerLivro(int index) async {
     final removido = _livros[index];
     setState(() => _livros.removeAt(index));
+    await LivroStorage.salvar(_livros);
+    if (!mounted) return;
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('"${removido.titulo}" removido da lista.')),
@@ -69,7 +91,9 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      body: _livros.isEmpty
+      body: _carregando
+          ? const Center(child: CircularProgressIndicator())
+          : _livros.isEmpty
           ? const Center(
               child: Text(
                 'Nenhum livro cadastrado.\nToque em + para adicionar.',
