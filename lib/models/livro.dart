@@ -1,5 +1,6 @@
 // TP7 - App de Organização de Leituras
-// Integrante: Carlos Eduardo da Silva Santos
+// Integrantes: Carlos Eduardo da Silva Santos
+//              Ana Carolina dos Santos Sabino
 
 import 'dart:convert';
 

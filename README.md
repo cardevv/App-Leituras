@@ -1,6 +1,9 @@
 # App de Organização de Leituras (TP7)
 
-**Integrante:** Carlos Eduardo da Silva Santos
+**Integrantes:**
+
+- Carlos Eduardo da Silva Santos
+- Ana Carolina dos Santos Sabino
 
 Aplicativo Flutter para organizar uma lista pessoal de livros.
 

@@ -1,5 +1,6 @@
 // TP7 - App de Organização de Leituras
-// Integrante: Carlos Eduardo da Silva Santos
+// Integrantes: Carlos Eduardo da Silva Santos
+//              Ana Carolina dos Santos Sabino
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -12,12 +13,17 @@ import 'package:app_leituras/services/livro_storage.dart';
 void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
 
-  testWidgets('Tela inicial mostra o nome do integrante', (tester) async {
+  testWidgets('Tela inicial mostra o nome dos integrantes', (tester) async {
     await tester.pumpWidget(const AppLeituras());
     await tester.pumpAndSettle();
 
     expect(find.text('Minhas Leituras'), findsOneWidget);
-    expect(find.text('Carlos Eduardo da Silva Santos'), findsOneWidget);
+    expect(
+      find.text(
+        'Carlos Eduardo da Silva Santos\nAna Carolina dos Santos Sabino',
+      ),
+      findsOneWidget,
+    );
   });
 
   testWidgets('Cadastra, persiste e remove um livro', (tester) async {

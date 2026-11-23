@@ -1,5 +1,6 @@
 // TP7 - App de Organização de Leituras
-// Integrante: Carlos Eduardo da Silva Santos
+// Integrantes: Carlos Eduardo da Silva Santos
+//              Ana Carolina dos Santos Sabino
 
 import 'package:flutter/material.dart';
 
@@ -79,14 +80,15 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 76,
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('Minhas Leituras'),
             Text(
-              'Carlos Eduardo da Silva Santos',
-              style: TextStyle(fontSize: 13),
+              'Carlos Eduardo da Silva Santos\nAna Carolina dos Santos Sabino',
+              style: TextStyle(fontSize: 12),
             ),
           ],
         ),
